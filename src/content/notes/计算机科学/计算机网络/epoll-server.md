@@ -2,7 +2,6 @@
 id: a8f3c2e1
 title: 用 epoll 实现高并发服务器
 slug: epoll-server
-category: 计算机科学/计算机网络
 tags:
   - epoll
   - IO多路复用

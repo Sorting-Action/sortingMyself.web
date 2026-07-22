@@ -1,7 +1,7 @@
 ---
 import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import { getPublishedNotes } from '../../lib/notes';
+import { getPublishedNotes, noteCategory } from '../../lib/notes';
 
 export async function getStaticPaths() {
   const notes = await getPublishedNotes();
@@ -23,8 +23,8 @@ const { Content } = await render(note);
     <h1>{note.data.title}</h1>
     <p>
       <small>
-        分类：<a href={`/categories/${note.data.category}/`}
-          >{note.data.category}</a
+        分类：<a href={`/categories/${noteCategory(note)}/`}
+          >{noteCategory(note)}</a
         >
          · 发布于 {note.data.created.toISOString().slice(0, 10)}
         {

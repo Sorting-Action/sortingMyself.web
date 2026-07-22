@@ -1,6 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { getPublishedNotes, getAllTags, noteUrl, type Note } from '../../lib/notes';
+import { getPublishedNotes, getAllTags, noteUrl, noteCategory, type Note } from '../../lib/notes';
 
 export async function getStaticPaths() {
   const notes = await getPublishedNotes();
@@ -24,7 +24,7 @@ const { tag, tagged } = Astro.props;
       tagged.map((note) => (
         <li>
           <a href={noteUrl(note)}>{note.data.title}</a>
-          <small> · {note.data.category}</small>
+          <small> · {noteCategory(note)}</small>
         </li>
       ))
     }

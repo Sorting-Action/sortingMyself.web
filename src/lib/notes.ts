@@ -8,9 +8,15 @@ export async function getPublishedNotes(): Promise<Note[]> {
   return notes.sort((a, b) => b.data.created.getTime() - a.data.created.getTime());
 }
 
-/** URL = 稳定 ID + 可选 slug，与分类解耦，重新上传/改分类都不会变 */
+/** URL = 稳定 ID + 可选 slug，与分类解耦，移动文件夹/改分类都不会变 */
 export function noteUrl(note: Note): string {
   return `/notes/${note.data.id}${note.data.slug ? `-${note.data.slug}` : ''}/`;
+}
+
+/** 分类 = 文件所在文件夹路径（唯一真相）。根目录下的笔记归为「未分类」 */
+export function noteCategory(note: Note): string {
+  const idx = note.id.lastIndexOf('/');
+  return idx === -1 ? '未分类' : note.id.slice(0, idx);
 }
 
 export interface CategoryNode {
@@ -22,11 +28,11 @@ export interface CategoryNode {
   children: CategoryNode[];
 }
 
-/** 分类树 = 所有已发布笔记的 category 字段聚合，与文件物理位置无关 */
+/** 分类树 = 文件夹结构聚合 */
 export function buildCategoryTree(notes: Note[]): CategoryNode[] {
   const roots: CategoryNode[] = [];
   for (const note of notes) {
-    const parts = note.data.category
+    const parts = noteCategory(note)
       .split('/')
       .map((s) => s.trim())
       .filter(Boolean);
