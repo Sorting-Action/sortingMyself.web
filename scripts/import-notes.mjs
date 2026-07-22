@@ -140,7 +140,7 @@ for (const file of walk(SRC)) {
 
   const frontmatter = [
     '---',
-    `id: ${id}`,
+    `id: "${id}"`, // 引号必须：全数字的 id 会被 YAML 解析成 number
     `title: ${JSON.stringify(title)}`,
     slug ? `slug: ${slug}` : null,
     tags.length ? `tags: ${JSON.stringify(tags)}` : 'tags: []',
