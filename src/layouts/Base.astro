@@ -1,0 +1,84 @@
+---
+interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} · sortingMyself</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family:
+          -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+          sans-serif;
+        margin: 0;
+        color: #222;
+        line-height: 1.75;
+      }
+      header,
+      main,
+      footer {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        padding-top: 1.25rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid #eee;
+      }
+      nav a {
+        margin-left: 1rem;
+      }
+      a {
+        color: #2563eb;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      main {
+        padding-top: 1rem;
+      }
+      footer {
+        margin-top: 4rem;
+        padding-bottom: 2rem;
+        color: #999;
+        font-size: 0.85rem;
+      }
+      pre {
+        padding: 0.75rem 1rem;
+        overflow-x: auto;
+        border-radius: 6px;
+      }
+      code {
+        font-family: "SF Mono", Menlo, Consolas, monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="/"><strong>sortingMyself</strong></a>
+      <nav>
+        <a href="/">首页</a>
+        <a href="/tags/">标签</a>
+        <a href="/about/">关于</a>
+      </nav>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer>Built with Astro · Deployed on Vercel</footer>
+  </body>
+</html>

@@ -1,0 +1,50 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { getPublishedNotes } from '../../lib/notes';
+
+export async function getStaticPaths() {
+  const notes = await getPublishedNotes();
+  return notes.map((note) => ({
+    params: {
+      // URL = 稳定 ID + 可选 slug；slug 可改，ID 永远不变
+      slug: note.data.slug ? `${note.data.id}-${note.data.slug}` : note.data.id,
+    },
+    props: { note },
+  }));
+}
+
+const { note } = Astro.props;
+const { Content } = await render(note);
+---
+
+<Base title={note.data.title}>
+  <article>
+    <h1>{note.data.title}</h1>
+    <p>
+      <small>
+        分类：<a href={`/categories/${note.data.category}/`}
+          >{note.data.category}</a
+        >
+         · 发布于 {note.data.created.toISOString().slice(0, 10)}
+        {
+          note.data.updated && (
+            <> · 更新于 {note.data.updated.toISOString().slice(0, 10)}</>
+          )
+        }
+      </small>
+    </p>
+    {
+      note.data.tags.length > 0 && (
+        <p>
+          {note.data.tags.map((tag) => (
+            <a href={`/tags/${tag}/`} style="margin-right: 0.5rem">
+              #{tag}
+            </a>
+          ))}
+        </p>
+      )
+    }
+    <Content />
+  </article>
+</Base>

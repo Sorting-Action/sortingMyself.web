@@ -1,0 +1,15 @@
+{
+  "name": "sortingmyself-web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "new": "node scripts/new-note.mjs"
+  },
+  "dependencies": {
+    "astro": "^5.0.0"
+  }
+}

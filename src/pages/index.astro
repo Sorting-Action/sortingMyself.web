@@ -1,0 +1,28 @@
+---
+import Base from '../layouts/Base.astro';
+import CategoryTree from '../components/CategoryTree.astro';
+import { getPublishedNotes, noteUrl, buildCategoryTree } from '../lib/notes';
+
+const notes = await getPublishedNotes();
+const tree = buildCategoryTree(notes);
+const recent = notes.slice(0, 10);
+---
+
+<Base title="首页">
+  <h1>学习记录</h1>
+
+  <h2>分类</h2>
+  <CategoryTree nodes={tree} />
+
+  <h2>最近更新</h2>
+  <ul>
+    {
+      recent.map((note) => (
+        <li>
+          <a href={noteUrl(note)}>{note.data.title}</a>
+          <small> · {note.data.created.toISOString().slice(0, 10)}</small>
+        </li>
+      ))
+    }
+  </ul>
+</Base>

@@ -1,0 +1,22 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getPublishedNotes, getAllTags } from '../../lib/notes';
+
+const notes = await getPublishedNotes();
+const tags = [...getAllTags(notes).entries()].sort(
+  (a, b) => b[1].length - a[1].length,
+);
+---
+
+<Base title="标签">
+  <h1>标签</h1>
+  <ul>
+    {
+      tags.map(([tag, tagged]) => (
+        <li>
+          <a href={`/tags/${tag}/`}>{tag}</a> ({tagged.length})
+        </li>
+      ))
+    }
+  </ul>
+</Base>

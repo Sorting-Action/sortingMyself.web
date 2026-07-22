@@ -1,0 +1,44 @@
+---
+import Base from '../../layouts/Base.astro';
+import CategoryTree from '../../components/CategoryTree.astro';
+import {
+  getPublishedNotes,
+  buildCategoryTree,
+  collectCategoryPaths,
+  collectNotes,
+  noteUrl,
+  type CategoryNode,
+} from '../../lib/notes';
+
+export async function getStaticPaths() {
+  const notes = await getPublishedNotes();
+  const tree = buildCategoryTree(notes);
+  return collectCategoryPaths(tree).map((node) => ({
+    params: { path: node.path },
+    props: { node },
+  }));
+}
+
+interface Props {
+  node: CategoryNode;
+}
+const { node } = Astro.props;
+const notes = collectNotes(node);
+---
+
+<Base title={`分类：${node.name}`}>
+  <h1>{node.path}</h1>
+
+  {node.children.length > 0 && <CategoryTree nodes={node.children} />}
+
+  <ul>
+    {
+      notes.map((note) => (
+        <li>
+          <a href={noteUrl(note)}>{note.data.title}</a>
+          <small> · {note.data.created.toISOString().slice(0, 10)}</small>
+        </li>
+      ))
+    }
+  </ul>
+</Base>
