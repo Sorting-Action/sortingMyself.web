@@ -62,8 +62,9 @@ const { title } = Astro.props;
         overflow-x: auto;
         border-radius: 6px;
       }
-      /* 图片缩放：不超出正文宽度，保持原始宽高比，居中显示 */
-      img {
+      /* 图片缩放：不超出正文宽度，保持原始宽高比，居中显示。
+         必须用 :global —— Markdown 渲染出的 img 不带 Astro 的作用域属性 */
+      :global(img) {
         max-width: 100%;
         height: auto;
         display: block;
