@@ -69,15 +69,30 @@ for (const file of walk(SRC)) {
   const rel = relative(SRC, file); // 如 AI/CV/Paper/AlexNet.md
   const category = dirname(rel) === '.' ? '' : dirname(rel);
   const filename = basename(rel);
-  const title = filename.replace(/\.md$/, '');
   const id = randomBytes(4).toString('hex');
   const slug = makeSlug(filename);
-  const created = createdDate(file);
 
   let content = readFileSync(file, 'utf8');
 
-  // 剥离已有 frontmatter（如果有）
-  content = content.replace(/^---\n[\s\S]*?\n---\n*/, '');
+  // 解析已有 frontmatter（Hexo 等）：title/date/tags 可复用，其余丢弃
+  let title = filename.replace(/\.md$/, '');
+  let created = createdDate(file);
+  let tags = [];
+  const fm = content.match(/^---\n([\s\S]*?)\n---\n*/);
+  if (fm) {
+    const t = fm[1].match(/^title:\s*(.+)$/m);
+    if (t) title = t[1].trim().replace(/^["']|["']$/g, '');
+    const d = fm[1].match(/^date:\s*(\d{4}-\d{2}-\d{2})/m);
+    if (d) created = d[1];
+    const tagBlock = fm[1].match(/^tags:\s*\n((?:\s*-\s*.+\n?)+)/m);
+    if (tagBlock) {
+      tags = [...tagBlock[1].matchAll(/-\s*(.+)/g)]
+        .map((m) => m[1].trim().replace(/^["']|["']$/g, ''))
+        .filter((tag) => tag !== 'computer'); // 与分类树重复的冗余标签
+    }
+    content = content.slice(fm[0].length);
+  }
+  tags = [...new Set(tags)];
 
   const noteAssetsDir = join(ASSETS_DIR, id);
   const copyAsset = (refPath) => {
@@ -85,12 +100,13 @@ for (const file of walk(SRC)) {
     const decoded = decodeURIComponent(refPath.replace(/^\.\//, ''));
     const noteDir = join(SRC, dirname(rel));
     const base = basename(decoded);
-    // 解析链：直接路径 → Typora <笔记名>.assets → 共享 assets → Obsidian assets/<笔记名>
+    // 解析链：直接路径 → Typora <笔记名>.assets → 共享 assets → Obsidian assets/<笔记名> → Hexo <笔记名>/
     const candidates = [
       join(noteDir, decoded),
       join(noteDir, `${title}.assets`, base),
       join(noteDir, 'assets', base),
       join(noteDir, 'assets', title, base),
+      join(noteDir, filename.replace(/\.md$/, ''), base),
     ];
     const abs = candidates.find((p) => existsSync(p));
     if (!abs) {
@@ -102,6 +118,12 @@ for (const file of walk(SRC)) {
     images++;
     return `/notes-assets/${id}/${encodeURIComponent(basename(decoded))}`;
   };
+
+  // Hexo 图片标签: {% asset_img file.png 可选 alt %} → 标准图片语法
+  content = content.replace(
+    /\{%\s*asset_img\s+(\S+)([^%]*)%\}/g,
+    (m, p, alt) => `![${alt.trim()}](${p})`,
+  );
 
   // Obsidian 图片: ![[path]]
   content = content.replace(/!\[\[([^\]]+)\]\]/g, (m, p) => {
@@ -121,7 +143,7 @@ for (const file of walk(SRC)) {
     `id: ${id}`,
     `title: ${JSON.stringify(title)}`,
     slug ? `slug: ${slug}` : null,
-    'tags: []',
+    tags.length ? `tags: ${JSON.stringify(tags)}` : 'tags: []',
     'draft: false',
     `created: ${created}`,
     '---',
