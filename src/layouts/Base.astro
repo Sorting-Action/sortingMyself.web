@@ -62,6 +62,14 @@ const { title } = Astro.props;
         overflow-x: auto;
         border-radius: 6px;
       }
+      /* 图片缩放：不超出正文宽度，保持原始宽高比，居中显示 */
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 1rem auto;
+        border-radius: 4px;
+      }
       code {
         font-family: "SF Mono", Menlo, Consolas, monospace;
       }
