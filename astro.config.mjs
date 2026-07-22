@@ -1,5 +1,5 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://sorting-myself.vercel.app',
+  site: 'https://sortingmyself.vercel.app',
 });
