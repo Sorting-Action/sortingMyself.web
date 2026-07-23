@@ -1,0 +1,288 @@
+/* ============================================================
+   中国风设计系统
+   主色：青（雨过天青）  副色：金（赤金）
+   纸：宣纸米白  墨：墨色
+   ============================================================ */
+
+:root {
+  --qing: #116d7e;
+  --qing-dark: #0b4f5c;
+  --qing-light: #e9f2f3;
+  --gold: #b8912f;
+  --gold-soft: #d9c07a;
+  --gold-pale: #f3ecd8;
+  --paper: #faf7ef;
+  --ink: #2b2b2b;
+  --ink-light: #77705f;
+  --line: #e5ddc8;
+  --max: 760px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  /* 顶部一道青金渐变丝带 */
+  border-top: 4px solid;
+  border-image: linear-gradient(90deg, var(--qing) 65%, var(--gold) 100%) 1;
+}
+
+body {
+  font-family:
+    "Noto Serif SC", "Source Han Serif SC", "Songti SC", "STSong", "SimSun",
+    serif;
+  background: var(--paper);
+  color: var(--ink);
+  margin: 0;
+  line-height: 1.9;
+  letter-spacing: 0.015em;
+}
+
+::selection {
+  background: var(--gold-soft);
+}
+
+/* ---------- 布局 ---------- */
+
+header,
+main,
+footer {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-top: 1.5rem;
+  padding-bottom: 1rem;
+  /* 金色双线，如古籍版框 */
+  border-bottom: 3px double var(--gold-soft);
+}
+
+main {
+  padding-top: 1.5rem;
+}
+
+footer {
+  margin-top: 5rem;
+  padding-bottom: 2.5rem;
+  color: var(--ink-light);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+/* ---------- 刊头 ---------- */
+
+.site-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+/* 印章：青底白字，金线勾边 */
+.seal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  background: var(--qing);
+  color: var(--paper);
+  border: 1px solid var(--gold);
+  border-radius: 3px;
+  font-size: 1.05rem;
+  line-height: 1;
+  box-shadow: 1px 1px 0 var(--gold-soft);
+}
+
+.site-title strong {
+  font-size: 1.15rem;
+  letter-spacing: 0.05em;
+  color: var(--qing-dark);
+}
+
+nav a {
+  margin-left: 1.25rem;
+  color: var(--qing);
+  padding-bottom: 2px;
+}
+
+nav a:hover {
+  color: var(--gold);
+  border-bottom: 2px solid var(--gold);
+  text-decoration: none;
+}
+
+/* ---------- 文字 ---------- */
+
+h1 {
+  color: var(--qing-dark);
+  font-size: 1.85rem;
+  letter-spacing: 0.08em;
+  line-height: 1.4;
+}
+
+h2 {
+  color: var(--qing);
+  font-size: 1.35rem;
+  letter-spacing: 0.06em;
+  margin-top: 2.75rem;
+  padding-left: 0.6em;
+  /* 金条引首 */
+  border-left: 4px solid var(--gold);
+}
+
+h3 {
+  color: var(--qing-dark);
+  letter-spacing: 0.04em;
+}
+
+a {
+  color: var(--qing);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+a:hover {
+  color: var(--gold);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+small {
+  color: var(--ink-light);
+}
+
+/* 首页格言 */
+.motto {
+  color: var(--ink-light);
+  letter-spacing: 0.15em;
+  margin-top: -0.5rem;
+}
+
+.motto::before,
+.motto::after {
+  content: "—";
+  color: var(--gold-soft);
+  margin: 0 0.75em;
+}
+
+/* ---------- 列表 ---------- */
+
+li::marker {
+  color: var(--gold);
+}
+
+ul ul {
+  border-left: 1px solid var(--line);
+  margin-left: 0.4rem;
+  padding-left: 1.25rem;
+}
+
+/* ---------- 标签（做成鎏金小签） ---------- */
+
+a[href*="/tags/"] {
+  display: inline-block;
+  border: 1px solid var(--gold-soft);
+  border-radius: 3px;
+  background: var(--gold-pale);
+  color: var(--qing-dark);
+  padding: 0 0.55em;
+  margin: 0 0.35em 0.35em 0;
+  font-size: 0.88em;
+  line-height: 1.8;
+}
+
+a[href*="/tags/"]:hover {
+  background: var(--gold-soft);
+  color: var(--qing-dark);
+  text-decoration: none;
+}
+
+/* ---------- 内容元素 ---------- */
+
+blockquote {
+  margin: 1.5rem 0;
+  padding: 0.75rem 1.25rem;
+  background: var(--qing-light);
+  border-left: 3px solid var(--qing);
+  color: var(--ink);
+}
+
+blockquote p {
+  margin: 0.25rem 0;
+}
+
+code {
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.9em;
+}
+
+:not(pre) > code {
+  background: var(--qing-light);
+  color: var(--qing-dark);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+}
+
+pre {
+  padding: 0.9rem 1.1rem;
+  overflow-x: auto;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  line-height: 1.6;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1.25rem auto;
+  border-radius: 4px;
+  border: 1px solid var(--line);
+  box-shadow: 0 1px 6px rgba(43, 43, 43, 0.08);
+}
+
+hr {
+  border: none;
+  height: 1px;
+  margin: 3rem 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--gold-soft),
+    transparent
+  );
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.95em;
+}
+
+th {
+  background: var(--qing-light);
+  color: var(--qing-dark);
+}
+
+th,
+td {
+  border: 1px solid var(--line);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+
+/* ---------- 页脚饰花 ---------- */
+
+.ornament {
+  color: var(--gold);
+  letter-spacing: 1em;
+  display: block;
+  margin-bottom: 0.75rem;
+}
