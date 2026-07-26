@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import CategoryTree from '../../components/CategoryTree.astro';
+import CategoryPath from '../../components/CategoryPath.astro';
 import {
   getPublishedNotes,
   buildCategoryTree,
@@ -27,7 +28,7 @@ const notes = collectNotes(node);
 ---
 
 <Base title={`分类：${node.name}`}>
-  <h1>{node.path}</h1>
+  <h1><CategoryPath path={node.path} /></h1>
 
   {node.children.length > 0 && <CategoryTree nodes={node.children} />}
 
