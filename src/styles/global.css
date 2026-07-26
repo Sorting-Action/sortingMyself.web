@@ -303,6 +303,14 @@ td {
   margin-bottom: 0.75rem;
 }
 
+/* ---------- 数学公式 ---------- */
+
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.5rem 0;
+}
+
 /* ---------- 分类页分节 ---------- */
 
 .cat-section h2 {
