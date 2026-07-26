@@ -31,7 +31,6 @@ const { node } = Astro.props;
   {
     node.children.length > 0 && (
       <section class="cat-section">
-        <h2>子分类</h2>
         <CategoryTree nodes={node.children} />
       </section>
     )
