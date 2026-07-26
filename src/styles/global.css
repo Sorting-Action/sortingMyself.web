@@ -303,6 +303,12 @@ td {
   margin-bottom: 0.75rem;
 }
 
+/* ---------- 分类页分节 ---------- */
+
+.cat-section h2 {
+  margin-top: 2.5rem;
+}
+
 /* ---------- 面包屑分类路径 ---------- */
 
 .breadcrumb .sep {
