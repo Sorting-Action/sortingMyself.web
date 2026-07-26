@@ -10,13 +10,16 @@ const tags = [...getAllTags(notes).entries()].sort(
 
 <Base title="标签">
   <h1>标签</h1>
-  <ul>
+  <p class="motto">标签即关联</p>
+
+  <div class="tag-cloud">
     {
       tags.map(([tag, tagged]) => (
-        <li>
-          <a href={`/tags/${tag}/`}>{tag}</a> ({tagged.length})
-        </li>
+        <a href={`/tags/${tag}/`}>
+          {tag}
+          <small>{tagged.length}</small>
+        </a>
       ))
     }
-  </ul>
+  </div>
 </Base>

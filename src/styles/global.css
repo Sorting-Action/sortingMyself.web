@@ -203,6 +203,22 @@ a[href*="/tags/"]:hover {
   text-decoration: none;
 }
 
+/* 标签页：签云，计数收进签内，金色 */
+.tag-cloud {
+  margin-top: 1.5rem;
+  line-height: 2.4;
+}
+
+.tag-cloud a {
+  font-size: 1rem;
+}
+
+.tag-cloud a small {
+  color: var(--gold);
+  margin-left: 0.35em;
+  font-size: 0.8em;
+}
+
 /* ---------- 内容元素 ---------- */
 
 blockquote {
