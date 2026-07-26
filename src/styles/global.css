@@ -350,3 +350,9 @@ td {
   margin: 0;
   font-size: 0.95rem;
 }
+
+.feed-more {
+  margin-top: 2.5rem;
+  text-align: center;
+  letter-spacing: 0.05em;
+}

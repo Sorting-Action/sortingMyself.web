@@ -8,7 +8,7 @@ import {
   excerpt,
 } from '../lib/notes';
 
-const notes = await getPublishedNotes();
+const notes = (await getPublishedNotes()).slice(0, 10);
 ---
 
 <Base title="首页">
@@ -29,4 +29,7 @@ const notes = await getPublishedNotes();
       </article>
     ))
   }
+  <p class="feed-more">
+    <a href="/categories/">全部文章，按分类查阅 →</a>
+  </p>
 </Base>
