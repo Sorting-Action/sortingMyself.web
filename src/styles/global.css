@@ -253,6 +253,11 @@ pre {
   line-height: 1.6;
 }
 
+/* Shiki 会内联深色背景，覆写为淡青以贴合整体调性（语法配色已是亮色主题） */
+pre.astro-code {
+  background-color: var(--qing-light) !important;
+}
+
 img {
   max-width: 100%;
   height: auto;

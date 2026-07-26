@@ -7,5 +7,9 @@ export default defineConfig({
   markdown: {
     remarkPlugins: [remarkMath],
     rehypePlugins: [rehypeKatex],
+    shikiConfig: {
+      // 亮色主题，配合下面的淡青背景覆写
+      theme: 'github-light',
+    },
   },
 });
