@@ -183,9 +183,9 @@ ul ul {
   padding-left: 1.25rem;
 }
 
-/* ---------- 标签（做成鎏金小签） ---------- */
+/* ---------- 标签（正文中的鎏金小签，导航栏除外） ---------- */
 
-a[href*="/tags/"] {
+main a[href*="/tags/"] {
   display: inline-block;
   border: 1px solid var(--gold-soft);
   border-radius: 3px;
@@ -197,7 +197,7 @@ a[href*="/tags/"] {
   line-height: 1.8;
 }
 
-a[href*="/tags/"]:hover {
+main a[href*="/tags/"]:hover {
   background: var(--gold-soft);
   color: var(--qing-dark);
   text-decoration: none;
