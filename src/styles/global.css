@@ -303,6 +303,13 @@ td {
   margin-bottom: 0.75rem;
 }
 
+/* ---------- 面包屑分类路径 ---------- */
+
+.breadcrumb .sep {
+  color: var(--gold-soft);
+  margin: 0 0.3em;
+}
+
 /* ---------- 首页信息流 ---------- */
 
 .feed-item {

@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import CategoryPath from '../components/CategoryPath.astro';
 import {
   getPublishedNotes,
   noteUrl,
@@ -22,9 +23,7 @@ const notes = await getPublishedNotes();
         </h2>
         <p class="feed-meta">
           {note.data.created.toISOString().slice(0, 10)} ·{' '}
-          <a href={`/categories/${noteCategory(note)}/`}>
-            {noteCategory(note)}
-          </a>
+          <CategoryPath path={noteCategory(note)} />
         </p>
         <p class="feed-excerpt">{excerpt(note)}</p>
       </article>

@@ -1,0 +1,19 @@
+---
+// 面包屑分类路径：计算机科学 / 计算机网络，每一级独立可点击
+interface Props {
+  path: string; // 如 "计算机科学/计算机网络"
+}
+const { path } = Astro.props;
+const parts = path.split('/');
+---
+
+<span class="breadcrumb">
+  {
+    parts.map((part, i) => (
+      <>
+        <a href={`/categories/${parts.slice(0, i + 1).join('/')}/`}>{part}</a>
+        {i < parts.length - 1 && <span class="sep">/</span>}
+      </>
+    ))
+  }
+</span>
