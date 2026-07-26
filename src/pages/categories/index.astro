@@ -1,0 +1,14 @@
+---
+import Base from '../../layouts/Base.astro';
+import CategoryTree from '../../components/CategoryTree.astro';
+import { getPublishedNotes, buildCategoryTree } from '../../lib/notes';
+
+const notes = await getPublishedNotes();
+const tree = buildCategoryTree(notes);
+---
+
+<Base title="分类">
+  <h1>分类</h1>
+  <p class="motto">分类即主旨，标签即关联</p>
+  <CategoryTree nodes={tree} />
+</Base>

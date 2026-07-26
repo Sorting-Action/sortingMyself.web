@@ -1,5 +1,5 @@
 ---
-import type { CategoryNode } from '../lib/notes';
+import { collectNotes, type CategoryNode } from '../lib/notes';
 
 interface Props {
   nodes: CategoryNode[];
@@ -9,12 +9,15 @@ const { nodes } = Astro.props;
 
 <ul>
   {
-    nodes.map((node) => (
-      <li>
-        <a href={`/categories/${node.path}/`}>{node.name}</a>
-        {node.notes.length > 0 && <small> ({node.notes.length})</small>}
-        {node.children.length > 0 && <Astro.self nodes={node.children} />}
-      </li>
-    ))
+    nodes.map((node) => {
+      const total = collectNotes(node).length;
+      return (
+        <li>
+          <a href={`/categories/${node.path}/`}>{node.name}</a>
+          {total > 0 && <small> ({total})</small>}
+          {node.children.length > 0 && <Astro.self nodes={node.children} />}
+        </li>
+      );
+    })
   }
 </ul>

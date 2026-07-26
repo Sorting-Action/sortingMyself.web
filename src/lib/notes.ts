@@ -83,3 +83,17 @@ export function getAllTags(notes: Note[]): Map<string, Note[]> {
   }
   return map;
 }
+
+/** 从 Markdown 正文提取纯文本摘要（去代码块/图片/标记符号） */
+export function excerpt(note: Note, length = 120): string {
+  const text = (note.body ?? '')
+    .replace(/```[\s\S]*?```/g, ' ')
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, ' ')
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/^\s{0,3}(#{1,6}\s|>\s?|[-*+]\s|\d+\.\s)/gm, '')
+    .replace(/[*`~]{1,3}/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return text.length > length ? `${text.slice(0, length)}…` : text;
+}
